@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250711174219_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,56 +253,6 @@ namespace WebApi.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("WebApi.src.Models.CostCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CostCategory");
-                });
-
-            modelBuilder.Entity("WebApi.src.Models.Spending", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
-
-                    b.Property<int>("CostCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CostCategoryId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Spending");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Role", null)
@@ -349,41 +302,6 @@ namespace WebApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApi.src.Models.CostCategory", b =>
-                {
-                    b.HasOne("User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebApi.src.Models.Spending", b =>
-                {
-                    b.HasOne("WebApi.src.Models.CostCategory", "CostCategory")
-                        .WithMany("Spendings")
-                        .HasForeignKey("CostCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CostCategory");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebApi.src.Models.CostCategory", b =>
-                {
-                    b.Navigation("Spendings");
                 });
 #pragma warning restore 612, 618
         }

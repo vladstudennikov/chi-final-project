@@ -9,15 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(o => o.AddPolicy("cors", builder =>
 {
-  builder.AllowAnyHeader()
+    builder.AllowAnyHeader()
         .AllowAnyMethod()
         .SetIsOriginAllowed((host) => true)
         .AllowCredentials();
 }));
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-    .UseSnakeCaseNamingConvention(), ServiceLifetime.Scoped
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    )
 );
 
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
@@ -50,6 +52,7 @@ builder.Services.AddAuthentication(auth =>
   auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
   auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+
 .AddJwtBearer(options =>
 {
   var authKey = builder.Configuration["JWTSettings:Key"];

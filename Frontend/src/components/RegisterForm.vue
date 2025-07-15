@@ -14,16 +14,6 @@
         <img @click="showPassword = !showPassword" :src="'/images/svg/' + (showPassword ? 'hide' : 'show') + '.svg'">
       </div>
       
-      <label>{{ $t('PromoCode') }} <span class="error">{{form.errors.promoCode}}</span></label>
-      <input v-model="form.fields.promoCode" type="text" :placeholder="$t('PromoCodePlaceholder')">
-      
-      <span class="error">{{form.errors.termsAgreed}}</span>
-      <label class="terms-label">
-        <input type="checkbox" v-model="form.fields.termsAgreed">
-        {{ $t('reisterForm.terms') }} 
-        <router-link @click="modalStore.closeModal()" to="/terms">{{ $t('GeneralTermsandConditions') }}</router-link>.
-      </label>
-      
       <button class="primary modal-button" type="submit">{{ $t('SignUp')}}</button>
 
       <p class="link-button">{{ $t('AlreadyHaveAccount') }} <a @click="modalStore.openLoginModal">{{ $t('Login2') }}</a></p>
@@ -47,8 +37,6 @@ const formSchema = z.object({
   username: z.string().min(3),
   email: z.string().min(5).includes('@'),
   password: z.string().min(8),
-  promoCode: z.string().optional(),
-  termsAgreed: z.boolean()
 });
 
 var form = reactive(new zForm(formSchema));

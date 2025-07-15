@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250713135338_AddedNewClassesWithDates")]
+    partial class AddedNewClassesWithDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,7 +253,7 @@ namespace WebApi.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("WebApi.src.Models.CostCategory", b =>
+            modelBuilder.Entity("WebApi.src.Data.CostCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -261,17 +264,12 @@ namespace WebApi.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CostCategory");
                 });
 
-            modelBuilder.Entity("WebApi.src.Models.Spending", b =>
+            modelBuilder.Entity("WebApi.src.Data.Spending", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -288,14 +286,9 @@ namespace WebApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CostCategoryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Spending");
                 });
@@ -351,37 +344,18 @@ namespace WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebApi.src.Models.CostCategory", b =>
+            modelBuilder.Entity("WebApi.src.Data.Spending", b =>
                 {
-                    b.HasOne("User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebApi.src.Models.Spending", b =>
-                {
-                    b.HasOne("WebApi.src.Models.CostCategory", "CostCategory")
+                    b.HasOne("WebApi.src.Data.CostCategory", "CostCategory")
                         .WithMany("Spendings")
                         .HasForeignKey("CostCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("CostCategory");
-
-                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebApi.src.Models.CostCategory", b =>
+            modelBuilder.Entity("WebApi.src.Data.CostCategory", b =>
                 {
                     b.Navigation("Spendings");
                 });

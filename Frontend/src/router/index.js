@@ -7,6 +7,8 @@ import ResetPassword from "../views/ResetPassword.vue";
 import ConfirmEmail from "../views/ConfirmEmail.vue";
 import Sessions from "../views/Sessions.vue";
 import Security from "../views/Security.vue";
+import CategoriesPage from "../views/CategoriesPage.vue";
+import SpendingsPage from "../views/SpendingsPage.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,8 @@ const router = createRouter({
       component: Security,
       meta: { requiresAuth: true }
     },
+    { path: '/categories', component: CategoriesPage },
+    { path: '/spendings', component: SpendingsPage }
   ],
   linkActiveClass: "active",
   // linkExactActiveClass: "exact-active",

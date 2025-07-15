@@ -1,7 +1,22 @@
+<script setup>
+import { onMounted } from 'vue';
+import { useAuthStore } from "../stores/authStore";
+
+const auth = useAuthStore();
+onMounted(() => {
+  auth.loginFromStorage();
+});
+
+</script>
+
 <template>
-  <div class="flex-col-centerv h-screen mt-33">
-    <h1 class="mb-10">Vue + ASP.NET Core Starter Template</h1>
-      <p>Simple starter template with Vue js frontend and ASP.NET Core backend.</p>
+  <div v-if="!auth.loggedIn" class="flex-col-centerv h-screen mt-33">
+    <h1 class="mb-10">Welcome</h1>
+    <p>Create an account or log in to start using service</p>
+  </div>
+
+  <div v-else class="flex-col-centerv h-screen mt-33">
+    <h1 class="mb-10">You're logged in</h1>
   </div>
 </template>
 

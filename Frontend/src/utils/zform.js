@@ -33,7 +33,7 @@ class zForm {
     });
   }
 
-  validate(showMessage = false) {
+  validate(showMessage = true) {
     this.clearErrors();
     this.isValid = true;
 

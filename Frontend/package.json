@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "axios": "^1.6.8",
+    "bootstrap": "^5.3.7",
     "jwt-decode": "^4.0.0",
     "pinia": "^2.1.7",
     "qrcode.vue": "^3.4.1",

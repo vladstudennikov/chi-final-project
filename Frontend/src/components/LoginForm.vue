@@ -13,9 +13,7 @@
 
       <label v-if="tfaRequired">{{ $t("TfaCode") }} <span class="error">{{form.errors.tfaCode}}</span></label>
       <input v-if="tfaRequired" type="text" v-model="tfaCode" autocomplete="off">
-        
-      <label class="terms-label">{{ $t('loginForm.terms') }} <router-link @click="modalStore.closeModal()" to="/terms">{{ $t('TermsofService') }}</router-link></label>
-      
+            
       <button class="primary modal-button" type="submit">{{ $t('Login') }}</button>
       
       <p class="link-button"><a @click="modalStore.openForgotPasswordModal">{{ $t('ForgotPassword') }}?</a></p>

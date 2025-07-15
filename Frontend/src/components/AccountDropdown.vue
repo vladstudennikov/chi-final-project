@@ -53,7 +53,7 @@ async function logout() {
   await api.auth.endSession(authStore.sessionId);
   authStore.logout();
   toggleAccountDropdown();
-  router.push("/login");
+  router.push("/");
 }
 </script>
 

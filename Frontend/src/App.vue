@@ -1,6 +1,8 @@
 <template>
   <div class="nav">
-    <router-link to="/">Logo</router-link>
+    <router-link to="/">
+      <img :src="topMenuLogo" alt="Logo" style="width: 80px; height: 40px;">
+    </router-link>
     <div v-if="!authStore.loggedIn" class="buttons-container">
       <button @click="modalStore.openLoginModal" class="secondary">{{ $t('Login') }}</button>
       <button @click="modalStore.openRegisterModal" class="primary">{{ $t('Register') }}</button>
@@ -21,6 +23,7 @@ import Modal from './components/Modal.vue';
 import accountDropdown from './components/AccountDropdown.vue';
 import { useModalStore } from "./stores/modalStore";
 import { useAuthStore } from "./stores/authStore";
+import topMenuLogo from "./assets/topmenu-logo.svg"
 
 const modalStore = useModalStore();
 const authStore = useAuthStore();
@@ -36,7 +39,7 @@ onMounted(() => {
 <style scoped>
 .main-container {
   margin: 0 auto;
-  max-width: 1104px !important;
+  /* max-width: 1104px !important; */
 }
 
 .nav {
